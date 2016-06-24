@@ -3,7 +3,5 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
   :recoverable, :rememberable, :trackable, :validatable, :timeoutable, :timeout_in => 1.hour
-
-  # before_create :generate_confirmation_token!
   
 end
