@@ -34,7 +34,18 @@ end
 
 ________________________
 
+h4. Let devise Get UserMailer:
+
+open config/initializers/devise.rb and add the following code:
+<pre>
+config.mailer = 'UserMailer'
+</pre>
+
+________________________
+
 h4. Make An Email Form For Confirmation
+
+Make the file app/views/devise/mailer/confirmation_instructions.html.erb and insert the following code:
 
 <pre>
 <p>Hi <%= @user.name %></p>
@@ -45,3 +56,44 @@ h4. Make An Email Form For Confirmation
 
 <p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
 </pre>
+
+________________________
+
+h4. SMTP Settings:
+
+configure settings like the bellowings in config/environments/development.rb:
+
+<pre>
+config.action_mailer.smtp_settings = {
+  address: "127.0.0.1",
+  port: 1025,
+  domain: Rails.application.secrets.domain_name,
+  authentication: "plain",
+  enable_starttls_auto: true,
+  user_name: Rails.application.secrets.email_provider_username,
+  password: Rails.application.secrets.email_provider_password
+}
+# ActionMailer Config
+config.action_mailer.default_url_options = { :host => '127.0.0.1:3000' }
+config.action_mailer.delivery_method = :smtp
+config.action_mailer.raise_delivery_errors = true
+# Send email in development mode?
+config.action_mailer.perform_deliveries = true
+</pre>
+
+________________________
+
+h4. Setup SMTP Server:
+
+To test the setup in development install the mailcatcher gem, that you will use as a SMTP server in development, catching all incoming mails and displaying them on http://localhost:1080/:
+<pre>
+gem install mailcatcher
+</pre>
+Once installed start the mailcatcher server with the command:
+<pre>
+mailcatcher
+</pre>
+A toy SMTP server will be running on port 1025 catching emails and displaing them on HTTP port 1080.
+
+
+
