@@ -36,7 +36,8 @@ ________________________
 
 h4. Let devise Get UserMailer:
 
-open config/initializers/devise.rb and add the following code:
+Open config/initializers/devise.rb and add the following code:
+
 <pre>
 config.mailer = 'UserMailer'
 </pre>
@@ -86,13 +87,17 @@ ________________________
 h4. Setup SMTP Server:
 
 To test the setup in development install the mailcatcher gem, that you will use as a SMTP server in development, catching all incoming mails and displaying them on http://localhost:1080/:
+
 <pre>
 gem install mailcatcher
 </pre>
+
 Once installed start the mailcatcher server with the command:
+
 <pre>
 mailcatcher
 </pre>
+
 A toy SMTP server will be running on port 1025 catching emails and displaing them on HTTP port 1080.
 
 
