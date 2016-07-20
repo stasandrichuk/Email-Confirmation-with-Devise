@@ -2,7 +2,13 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @users = User.all
+    if current_user.user_type.eql? "admin"
+      @users = User.where("user_type <> 'admin'")
+    elsif current_user.user_type.eql? "teamleader"
+      @users = User.where("invited_by_id = ?", current_user.id)
+    else
+      @users = []
+    end
   end
 
   def show
